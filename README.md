@@ -16,3 +16,10 @@ This library exists for code that needs to compare two short-to-medium strings a
 ## Edge cases
 
 When several subsequences tie for the longest length, only one is returned. The backtrack favours the first string, so the choice is deterministic rather than arbitrary. Inputs are required to be strings; any other type throws a `TypeError`.
+
+## Design notes
+
+The window stores values eagerly rather than keeping running aggregates. Running
+sums drift with floating point over long streams, and recomputing from a small
+buffer is cheap enough that the drift is not worth the speed.
+
